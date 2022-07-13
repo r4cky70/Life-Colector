@@ -3,6 +3,8 @@ import Control.Exception
 import System.IO
 import System.IO.Error
 import System.Process
+import Data.List
+import Data.Function
 
 -- Definição dos tipos de dados
 
@@ -21,8 +23,8 @@ getString str = do
 
 
 -- Função que inicia o programa
-inicio :: IO()
-inicio = do
+main :: IO()
+main = do
     {catch (le_arquivo) trata_erro;}
     where
         le_arquivo = do
@@ -46,13 +48,13 @@ inicio = do
 -- Função que exibe o menu
 menu :: Jogadores -> IO Jogadores
 menu dados = do
-            --system "cls"
+            system "clear"
             putStrLn "----------------------------- Jogo da Vida -----------------------------"
             putStrLn "\nDigite 1 para cadastrar novo jogador"
             putStrLn "\nDigite 2 para jogar"
             putStrLn "\nDigite 3 para visualizar o rank"
             putStrLn "\nDigite 0 para sair"
-            putStr "Opções:"
+            putStr "\nOpções: "
             op <- getChar
             getChar 
             executaOpcao dados op
@@ -61,12 +63,22 @@ menu dados = do
 executaOpcao :: Jogadores -> Char -> IO Jogadores
 executaOpcao dados '1' = cadastraJogador dados
 executaOpcao dados '2' = preparaJogo dados
+executaOpcao dados '3' =  do
+                            putStrLn "\nRanking dos jogadores\n"
+                            if (null dados) then do
+                                                    putStrLn "Não há jogadores cadastrados!"
+                            else
+                                -- Função que ordena de forma decrescente pelapontuação
+                                exibeRanking (reverse (ordena dados))
+                            putStrLn ("\nPressione um <Enter> para voltar ao Menu")
+                            getChar
+                            menu dados
 executaOpcao dados '0' = do
                             putStrLn ("\nAté uma próxima jogatina :)\n")
                             return dados
 executaOpcao dados _ = do
-                            putStrLn ("\nOpção inválida :(\n")
-                            putStrLn ("\nPressione um <Enter> para voltar ao Menu\n")
+                            putStrLn ("\nOpção inválida :(")
+                            putStrLn ("\nPressione um <Enter> para voltar ao Menu")
                             getChar
                             menu dados
 
@@ -123,6 +135,70 @@ novoJogo dados jogador = do
 
 
 
+-- Função que exibe o ranking dos jogadores
+-- Critério: da maior pontuação para a menor
+exibeRanking :: Jogadores -> IO ()
+exibeRanking [] = return ()
+exibeRanking (x:xs) = do
+                        putStrLn ((obterNome x) ++ " possui " ++ (show (obterPontuacao x)) ++ " pontos")
+                        exibeRanking xs
+
+
+
+-- Função que recebe um jogador e retorna o seu nome
+obterNome :: Jogador -> Nome
+obterNome (Jogador nome _) = nome
+
+
+
+-- Função que recebe um jogador e retorna a sua pontuação
+obterPontuacao :: Jogador -> Pontuacao
+obterPontuacao (Jogador _ pontuacao) = pontuacao
+
+
+-- Função que define o critério de ordenação
+ordena :: Jogadores -> Jogadores
+ordena dados = sortBy (compare `on` obterPontuacao) dados
+
+-- geraEstruturas :: [[String]] -> [[String]]
+-- geraEstruturas tabela = a
+--     where
+--         a = gliderGun tabela 0 0
+
+-- gliderGun :: [[String]] -> [[String]] -> Int -> Int  -> [Int] -> [[String]]
+-- gliderGun tabela ((y:ys):xs) ((length tabela) -1) ((lenght tabela !! 0) -1) temp = 
+-- gliderGun tabela ((y:ys):xs) _ ((lenght() tabela !! 0) -1) = 
+
 -- Função que exibe a tabela
 rodaJogo :: Jogadores -> Tabela -> Nome -> IO Jogadores
-rodaJogo dados tabela jogador = menu dados
+rodaJogo dados tabela jogador = menu dados --do
+                                    -- --putStrLn (showTabuleuiro 0 (lenght tabela))
+
+                                    -- -- Verifica se jogador perdeu (condição de parada do jogo)
+                                    -- if (jogadorPerdeu tabela pontuacao) then do
+                                    --     putStrLn("Parabén, " ++ jogador ++ "! Você venceu!")
+
+                                    --     -- Abre o arquivo no modo escrita para atualizar a pontuação
+                                    --     arq_escrita <- openFile "dados.txt" WriteMode
+                                    --     hPutStrLn arq_escrita (show (atualizaPontuacao dados jogador pontuiacao))
+                                    --     hClose arq_escrita
+
+                                    --     -- Abre o arquivo no modo leitura
+                                    --     arq_leitura <- openFile "dados.txt" ReadMode
+                                    --     dados_atualizados <- hGetLine arq_leitura
+                                    --     hClose arq_leitura
+
+                                    --     putStr "\nPressione <Enter> para voltar ao menu"
+                                    --     getChar
+                                    --     menu (read dados_atualizados)
+                                    
+                                    -- -- Sem interrupções
+                                    -- else do
+
+
+
+-- showTabuleiro :: Tabuleiro -> Int -> Int -> [Char]
+-- showTabuleiro tabela indece tamanho
+--                                     | (indice == tamanho -1) = ""
+--                                     | otherwise
+--                                                 | 
