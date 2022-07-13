@@ -5,6 +5,8 @@ import Control.Exception
 import System.IO
 import System.IO.Error
 import System.Process
+import Data.List
+import Data.Function
 
 -- Definição dos tipos de dados
 
@@ -24,7 +26,7 @@ getString str = do
 
 -- Função que inicia o programa
 main :: IO()
-main= do
+main = do
     {catch (le_arquivo) trata_erro;}
     where
         le_arquivo = do
@@ -48,13 +50,13 @@ main= do
 -- Função que exibe o menu
 menu :: Jogadores -> IO Jogadores
 menu dados = do
-            --system "cls"
+            system "clear"
             putStrLn "----------------------------- Jogo da Vida -----------------------------"
             putStrLn "\nDigite 1 para cadastrar novo jogador"
             putStrLn "\nDigite 2 para jogar"
             putStrLn "\nDigite 3 para visualizar o rank"
             putStrLn "\nDigite 0 para sair"
-            putStr "Opções:"
+            putStr "\nOpções: "
             op <- getChar
             getChar 
             executaOpcao dados op
@@ -63,12 +65,22 @@ menu dados = do
 executaOpcao :: Jogadores -> Char -> IO Jogadores
 executaOpcao dados '1' = cadastraJogador dados
 executaOpcao dados '2' = preparaJogo dados
+executaOpcao dados '3' =  do
+                            putStrLn "\nRanking dos jogadores\n"
+                            if (null dados) then do
+                                                    putStrLn "Não há jogadores cadastrados!"
+                            else
+                                -- Função que ordena de forma decrescente pelapontuação
+                                exibeRanking (reverse (ordena dados))
+                            putStrLn ("\nPressione um <Enter> para voltar ao Menu")
+                            getChar
+                            menu dados
 executaOpcao dados '0' = do
                             putStrLn ("\nAté uma próxima jogatina :)\n")
                             return dados
 executaOpcao dados _ = do
-                            putStrLn ("\nOpção inválida :(\n")
-                            putStrLn ("\nPressione um <Enter> para voltar ao Menu\n")
+                            putStrLn ("\nOpção inválida :(")
+                            putStrLn ("\nPressione um <Enter> para voltar ao Menu")
                             getChar
                             menu dados
 
@@ -125,6 +137,27 @@ novoJogo dados jogador = do
 
 
 
--- Função que exibe a tabela
-rodaJogo :: Jogadores -> Tabela -> Nome -> IO Jogadores
-rodaJogo dados tabela jogador = menu dados
+-- Função que exibe o ranking dos jogadores
+-- Critério: da maior pontuação para a menor
+exibeRanking :: Jogadores -> IO ()
+exibeRanking [] = return ()
+exibeRanking (x:xs) = do
+                        putStrLn ((obterNome x) ++ " possui " ++ (show (obterPontuacao x)) ++ " pontos")
+                        exibeRanking xs
+
+
+
+-- Função que recebe um jogador e retorna o seu nome
+obterNome :: Jogador -> Nome
+obterNome (Jogador nome _) = nome
+
+
+
+-- Função que recebe um jogador e retorna a sua pontuação
+obterPontuacao :: Jogador -> Pontuacao
+obterPontuacao (Jogador _ pontuacao) = pontuacao
+
+
+-- Função que define o critério de ordenação
+ordena :: Jogadores -> Jogadores
+ordena dados = sortBy (compare `on` obterPontuacao) dados
