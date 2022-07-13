@@ -1,1 +1,0 @@
-[Jogador "" 0,Jogador "ddd" 0,Jogador "kaka" 5,Jogador "carlos" 0,Jogador "joao" 0]
