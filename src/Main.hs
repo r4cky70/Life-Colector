@@ -161,3 +161,48 @@ obterPontuacao (Jogador _ pontuacao) = pontuacao
 -- Função que define o critério de ordenação
 ordena :: Jogadores -> Jogadores
 ordena dados = sortBy (compare `on` obterPontuacao) dados
+
+
+-- geraEstruturas :: [[String]] -> [[String]]
+-- geraEstruturas tabela = a
+--     where
+--         a = gliderGun tabela 0 0
+
+-- gliderGun :: [[String]] -> [[String]] -> Int -> Int  -> [Int] -> [[String]]
+-- gliderGun tabela ((y:ys):xs) ((length tabela) -1) ((lenght tabela !! 0) -1) temp = 
+-- gliderGun tabela ((y:ys):xs) _ ((lenght() tabela !! 0) -1) = 
+
+-- Função que exibe a tabela
+rodaJogo :: Jogadores -> Tabela -> Nome -> IO Jogadores
+rodaJogo dados tabela jogador = menu dados --do
+                                    -- --putStrLn (showTabuleuiro 0 (lenght tabela))
+
+                                    -- -- Verifica se jogador perdeu (condição de parada do jogo)
+                                    -- if (jogadorPerdeu tabela pontuacao) then do
+                                    --     putStrLn("Parabén, " ++ jogador ++ "! Você venceu!")
+
+                                    --     -- Abre o arquivo no modo escrita para atualizar a pontuação
+                                    --     arq_escrita <- openFile "dados.txt" WriteMode
+                                    --     hPutStrLn arq_escrita (show (atualizaPontuacao dados jogador pontuiacao))
+                                    --     hClose arq_escrita
+
+                                    --     -- Abre o arquivo no modo leitura
+                                    --     arq_leitura <- openFile "dados.txt" ReadMode
+                                    --     dados_atualizados <- hGetLine arq_leitura
+                                    --     hClose arq_leitura
+
+                                    --     putStr "\nPressione <Enter> para voltar ao menu"
+                                    --     getChar
+                                    --     menu (read dados_atualizados)
+                                    
+                                    -- -- Sem interrupções
+                                    -- else do
+
+
+
+-- showTabuleiro :: Tabuleiro -> Int -> Int -> [Char]
+-- showTabuleiro tabela indece tamanho
+--                                     | (indice == tamanho -1) = ""
+--                                     | otherwise
+--                                           
+
