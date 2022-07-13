@@ -1,3 +1,5 @@
+module Main where
+
 
 import Control.Exception
 import System.IO
@@ -21,8 +23,8 @@ getString str = do
 
 
 -- Função que inicia o programa
-inicio :: IO()
-inicio = do
+main :: IO()
+main= do
     {catch (le_arquivo) trata_erro;}
     where
         le_arquivo = do

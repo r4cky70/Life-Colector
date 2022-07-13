@@ -1,1 +1,1 @@
-[Jogador "carlos" 0,Jogador "joao" 0]
+[Jogador "teste" 0,Jogador "carlos" 0,Jogador "joao" 0]
