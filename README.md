@@ -31,9 +31,10 @@ Inicialmente, intala-se o cabal executável :
 
 ```bash
 cabal update
+```
+```bash
 cabal install Cabal cabal-install
 ```
-
 Agora, será necessário entrar no diretório Haskell:
 
 ```bash
