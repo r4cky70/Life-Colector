@@ -7,13 +7,13 @@ Jogo da Vida de John Conway interativo com diversas estrururas setadas e possibi
 Clone o repositório
 
 ```bash
-$ git clone https://github.com/r4cky70/Life-Colector.git
+git clone https://github.com/r4cky70/Life-Colector.git
 ```
 
 Entre no repositório
 
 ```bash
-$ cd Life-Colector
+cd Life-Colector
 ```
 ## Implementação em Haskell
 
@@ -23,25 +23,25 @@ $ cd Life-Colector
 - Ter em sua máquina o Haskell plataform funcionando :
 
     ```bash
-    $ sudo apt-get install haskell-platform
+    sudo apt-get install haskell-platform
     ```
   
 ### Utilizando Cabal
 Inicialmente, intala-se o cabal executável :
 
 ```bash
-$ cabal update
-$ cabal install Cabal cabal-install
+cabal update
+cabal install Cabal cabal-install
 ```
 
 Agora, será necessário entrar no diretório Haskell:
 
 ```bash
-$ cd Haskell
+cd Haskell
 ```
 
 Por fim,  execute o seguinte comando para instalar as dependências faltantres e iniciar o jogo:
 
 ```bash
-$ cabal run
+cabal run
 ```
