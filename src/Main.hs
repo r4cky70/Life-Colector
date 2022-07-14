@@ -18,7 +18,8 @@ main = do
             system "cls"
             putStrLn "----------------------------- Jogo da Vida -----------------------------"
             putStrLn "\nDigite 1 para jogar"
-            putStrLn "\nDigite 2 para visualizar as estruturas"
+            putStrLn "\nDigite 2 para jogar com tabuleiro personalizado"
+            putStrLn "\nDigite 3 para visualizar as estruturas"
             putStrLn "\nDigite 0 para sair"
             op <- getChar
             getChar
@@ -28,8 +29,9 @@ main = do
 
             
 executaOpcao :: Char -> IO()
-executaOpcao '1' = preparaJogo
-executaOpcao '2' = escolheEstrutura
+executaOpcao '1' = iniciaJogo 120 40
+executaOpcao '2' = preparaJogo
+executaOpcao '3' = escolheEstrutura
 executaOpcao '0' = do
                             putStrLn ("\nAté uma próxima jogatina :)\n")
                             return ()
@@ -38,6 +40,16 @@ executaOpcao _ = do
                             putStrLn ("\nPressione um <Enter> para voltar ao Menu")
                             getChar
                             main
+
+
+
+preparaJogo = do
+    putStrLn ("\nEscolha o tamanho do seu tabuleiro)\n")
+    putStrLn ("\nInsira o número de linhas")
+    l <- getLine
+    putStrLn ("\nInsira o número de colunas")
+    c <- getLine
+    iniciaJogo (read l) (read c)
 
 
                 
@@ -56,7 +68,7 @@ escolheEstrutura = do
 mostraEstrutura :: Int -> IO ()
 mostraEstrutura x = if x > 0 && x <= length spcship then do
                         let mx = spcship
-                        viewBoard (snd (mx!!0))
+                        plotMatrix (snd (mx!!(x-1)))
                         putStrLn ("\nPressione um <Enter> para escolher outra estrutura")
                         getChar
                         escolheEstrutura
