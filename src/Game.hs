@@ -12,7 +12,7 @@ matrixGen width height =
     
 viewBoard :: [[Char]] -> IO()
 viewBoard matriz = do
-  system "clear"
+  system "cls"
   putStrLn ("1. Adicionar | q. Sair | [_]. Avançar | SZ: " ++ show (length (matriz!!0)) ++ "x" ++ show (length (matriz)))
   putStrLn $ take ((length (matriz!!0))+2) (repeat '-')
   putStr $ unlines ["|" ++ x ++ "|" | x <- matriz]
@@ -34,6 +34,7 @@ inputPlay mx "1" = do
   aux <- getLine
   inputPlay mx2 aux
 inputPlay mx "q" = do
+  --Main.main
   return()
 inputPlay mx _ = do
   let mx2 = advanceGameState mx
@@ -54,7 +55,7 @@ game w h = do
 
 
 
-main = do
+preparaJogo = do
   let w = 120
       h = 40
   let matriz = (matrixGen w h)
