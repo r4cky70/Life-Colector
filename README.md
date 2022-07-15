@@ -51,10 +51,10 @@ cabal install Cabal cabal-install
 Entre no repositório
 
 ```bash
-cd Life-Interactive\src
+cd Life-Interactive
 ```
 Por fim,  execute o seguinte comando para iniciar o jogo:
 
 ```bash
-runhaskell Main.hs
+cabal run
 ```
