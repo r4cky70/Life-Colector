@@ -29,7 +29,7 @@ main = do
 
             
 executaOpcao :: Char -> IO()
-executaOpcao '1' = iniciaJogo 200 35 
+executaOpcao '1' = iniciaJogo 35 208
 executaOpcao '2' = preparaJogo
 executaOpcao '3' = escolheEstrutura
 executaOpcao '0' = do
@@ -45,11 +45,11 @@ executaOpcao _ = do
 
 preparaJogo = do
     putStrLn ("\nEscolha o tamanho do seu tabuleiro)\n")
-    putStrLn ("\nInsira o número de colunas")
-    c <- getLine
     putStrLn ("\nInsira o número de linhas")
     l <- getLine
-    iniciaJogo (read c) (read l)
+    putStrLn ("\nInsira o número de colunas")
+    c <- getLine
+    iniciaJogo (read l) (read c)
 
 
                 

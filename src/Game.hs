@@ -5,7 +5,7 @@ import AdvanceGameState
 import System.Process
 
 matrixGen :: Int -> Int -> [[Char]]
-matrixGen width height =
+matrixGen height width =
   [([' ' | x <- [1..width]]) | y <- [1..height]]
 
 
@@ -20,7 +20,7 @@ plotMatrix matriz = do
 viewMatrix :: [[Char]] -> IO()
 viewMatrix matriz = do
   system "cls"
-  putStrLn ("1. Adicionar | q. Sair | [_]. Avançar | SZ: " ++ show (length (matriz!!0)) ++ "x" ++ show (length (matriz)))
+  putStrLn ("1. Adicionar | q. Sair | [_]. Avançar | SZ: " ++  show (length (matriz)) ++ "x" ++ show (length (matriz!!0)))
   plotMatrix matriz
 
 
@@ -60,8 +60,8 @@ game w h = do
 
 
 iniciaJogo :: Int -> Int -> IO ()
-iniciaJogo c l = do
-  let matriz = (matrixGen c l)
+iniciaJogo l c = do
+  let matriz = (matrixGen l c)
   viewMatrix matriz
   move <- getLine
   inputPlay matriz move
