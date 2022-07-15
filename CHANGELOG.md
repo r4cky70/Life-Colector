@@ -1,4 +1,4 @@
-# Revision history for Life-Colector
+# Revision history for Life-Interactive
 
 ## 0.1.0.0 -- YYYY-mm-dd
 
