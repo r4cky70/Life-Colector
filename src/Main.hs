@@ -29,7 +29,7 @@ main = do
 
             
 executaOpcao :: Char -> IO()
-executaOpcao '1' = iniciaJogo 120 40
+executaOpcao '1' = iniciaJogo 125 60
 executaOpcao '2' = preparaJogo
 executaOpcao '3' = escolheEstrutura
 executaOpcao '0' = do
