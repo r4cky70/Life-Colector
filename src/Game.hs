@@ -60,7 +60,7 @@ game w h = do
 
 
 iniciaJogo :: Int -> Int -> IO ()
-iniciaJogo l c = do
+iniciaJogo c l = do
   let matriz = (matrixGen c l)
   viewMatrix matriz
   move <- getLine
