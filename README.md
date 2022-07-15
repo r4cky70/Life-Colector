@@ -10,21 +10,16 @@ Clone o repositório
 git clone https://github.com/r4cky70/Life-Colector.git
 ```
 
-Entre no repositório
-
-```bash
-cd Life-Colector
-```
 ## Implementação em Haskell
 
-## Para a funcionalidade da aplicação em Haskell é necessário
+### Para a funcionalidade da aplicação em Haskell é necessário
 
 - Ter em sua máquina [haskell , Cabal e GHC](https://www.haskell.org/downloads/).
 - Ter em sua máquina o Haskell plataform funcionando :
 
-    ```bash
-    sudo apt-get install haskell-platform
-    ```
+```bash
+sudo apt-get install haskell-platform
+```
   
 ### Utilizando Cabal
 Inicialmente, intala-se o cabal executável :
@@ -35,14 +30,16 @@ cabal update
 ```bash
 cabal install Cabal cabal-install
 ```
-Agora, será necessário entrar no diretório Haskell:
+
+### Iniciando o jogo
+
+Entre no repositório
 
 ```bash
-cd Haskell
+cd Life-Interactive\src
 ```
-
-Por fim,  execute o seguinte comando para instalar as dependências faltantres e iniciar o jogo:
+Por fim,  execute o seguinte comando para iniciar o jogo:
 
 ```bash
-cabal run
+runhaskell Main.hs
 ```
