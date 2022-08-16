@@ -26,7 +26,7 @@ plotMatrix(Matrix) :-
 viewMatrix(Matrix) :-
     write('\e[H\e[2J'),
     write('1. Adicionar | q. Sair | [_]. Avançar | SZ: ' ++ Row ++ 'x' ++ Columns), length(Matrix, Row), lenght (Row0, Columns), nth0(0, MAtrix, Row), nl,
-    PlotMatrix.
+    PlotMatrix(Matrix).
 
 
 

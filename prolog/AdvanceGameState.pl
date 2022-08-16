@@ -29,12 +29,11 @@ checa(Mx, Y, X) :-
 
 
 
-
-AdvanceGameState(Mx) :-
-    nth0(1, Mx, J),
-    length(J, W),
-    length(Mx, H).
-    %compreensao.
+AdvanceGameState(_, [], _, _). % Se manter o método como recebendo dois parâmetros, refatorar todas as suas ocorrências
+AdvanceGameState(Mx, [L2|T2], X, Y) :- % X e Y começam com 0 (zero).
+    AdvanceGameStateRow(L1, L2, X, Y), AdvanceGameState(T1, T2, 0, K), K is Y + 1.
     
-    
+AdvanceGameStateRow(_, [], X, Y).
+AdvanceGameStateRow(Mx, [E2|L2], X, Y) :- 
+    (checa(Mx, X, Y) -> E2 is '#'; E2 is ' '), AdvanceGameStateRow(Mx, L2, Z, Y), Z is X + 1.
      
