@@ -1,31 +1,68 @@
-:- Main.
-:- Structures.
-:- AdvanceGameState.
+:- [main].
+:- [structures].
+:- [advanceGameState].
 
 
-repete(ListIn, _, 0, ListIn).
-repete(ListIn, T, N, ListOut) :- append(ListIn, T, ListTem), repete(ListTem, T, K, ListOut), K is N -1.
+% Função que gera repetição de termos e listas.
+repete(0, _, []).
+repete(Cont, Elem, [Elem|T]) :- NewCont is Cont-1, repete(NewCont, Elem, T).
 
 
 
+% Função que gera a matriz inicial. 
 matrixGen(Height, Width, Matrix) :-
-    repete([], ' ', Width, Row),
-    repete([], Row, Height, Matrix).
+    repete(Width, ' ', Row),
+    repete(Height, Row, Matrix).
 
 
 
+% Função que formata o tabuleiro.
 plotMatrix(Matrix) :-
-    repete([], '-', N, Blanks), N is Len + 2, length(Rown, Len), nth0(0, Matrix, Row),
+    nth0(0, Matrix, Row),
+    length(Row, Len), 
+    N is Len + 2,
+    repete(N, '-', List),
+    atomic_list_concat(List, Blanks),  
 
-    write(Blanks), nl,
-    write(V), V <- {Line, Line is ('|' ++ X ++ '|'), X <- Matrix},
+    writeln(Blanks),
+    linhas(Matrix, 0),
     write(Blanks), nl.
 
 
 
+% Função que ajuda na formatação do tabuleiro formatando as linhas.
+linhas(X, N) :-
+    length(X, K),
+    N =:= K -1, 
+    nth0(N, X, Row),
+    append(['|'], Row, Pre),
+    append(Pre, ['|'], List),
+    atomic_list_concat(List, Line),
+
+    writeln(Line). 
+
+linhas(X, I) :-
+    nth0(I, X, Row),
+    J is I + 1,
+    append(['|'], Row, Pre),
+    append(Pre, ['|'], List),
+    atomic_list_concat(List, Line), 
+    writeln(Line),
+    linhas(X, J).
+
+
+
+% Função que mostra o tabuleiro.
 viewMatrix(Matrix) :-
     write('\e[H\e[2J'),
-    write('1. Adicionar | q. Sair | [_]. Avançar | SZ: ' ++ Row ++ 'x' ++ Columns), length(Matrix, Row), lenght (Row0, Columns), nth0(0, MAtrix, Row), nl,
+    
+    nth0(0, Matrix, Row0),
+    length(Row0, Columns),
+    length(Matrix, Row),
+    atom_concat(Row, 'x', Pre),
+    atom_concat(Pre, Columns, Pos),
+    atom_concat('1. Adicionar | q. Sair | [_]. Avançar | SZ: ', Pos, Head),
+    writeln(Head),  
     PlotMatrix(Matrix).
 
 

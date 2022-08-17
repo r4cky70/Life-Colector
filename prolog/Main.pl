@@ -1,4 +1,5 @@
 :-[structures].
+:-[game].
 
 
 
@@ -53,19 +54,30 @@ escolheEstrutura() :-
     % K is X -1,
     % nth0(K, spcShip, [Spc|_]),
     % Opc is (X ++ '. ' ++ Spc),
-    % write(Opc), nl,
-    menuEstruturas(0, K), K is N -1, length(spcShip, N),
+    % write(Opc), nl, 
+    menuEstruturas(0), 
     write('Pressione 0 para voltar ao menu'), nl,
     read(E),
     write('\e[H\e[2J'),
     mostraEstrutura(E).
 
 
-menuEstruturas(N, N) :-
-    write(Op), nl, atom_concat(Pre, Spc, Op), atom_concat(I, '. ', Pre), nth0(I, spcShip, Spc). 
-menuEstruturas(I, N) :-
-    write(Op), nl, atom_concat(Pre, Spc, Op), atom_concat(I, '. ', Pre), nth0(I, spcShip, Spc),
-    menuEstruturas(E, N), E is I -1.
+menuEstruturas(N) :-
+    length(spcShip, K),
+    N is K -1, 
+    getShip(N, [Name, _]),
+    number_string(N, Ns),
+    string_concat(Ns, ". ", Pre),
+    string_concat(Pre, Name, Op), 
+    write(Op), nl. 
+menuEstruturas(I) :-
+    getShip(I, [Name, _]),
+    J is I + 1,
+    number_string(J, Js),
+    string_concat(Js, ". ", Pre),
+    string_concat(Pre, Name, Op), 
+    write(Op), nl,
+    menuEstruturas(J).
     
 
 
