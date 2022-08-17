@@ -1,5 +1,5 @@
 :-[structures].
-
+:-[game].
 
 
 mainGame() :- 
@@ -36,12 +36,12 @@ escolheEstrutura() :-
     write('\e[H\e[2J'),
     writeln('Selecione uma estrutura para visualizar'), nl, 
     menuEstruturas(0),
-    write(0), 
+    % write(0), 
     nl, writeln('Pressione 0 para voltar ao menu'),
     read(E),
     write('\e[H\e[2J'),
-    % mostraEstrutura(E).
-    write(E).
+    mostraEstrutura(E).
+    % write(E).
 
 
 
@@ -50,7 +50,7 @@ menuEstruturas(N) :-
     length(Ships, K),
     N is K -1, 
     getShip(N, [Name, _]),
-    number_string(N, Ns),
+    number_string(K, Ns),
     string_concat(Ns, ". ", Pre),
     string_concat(Pre, Name, Op), 
     write(Op), nl. 
@@ -63,3 +63,23 @@ menuEstruturas(I) :-
     write(Op), nl,
     menuEstruturas(J).
 
+
+
+mostraEstrutura(0) :- mainGame().
+mostraEstrutura(E) :- 
+    getShip(Id, [_, Spc]),
+    spcShips(Ships),
+    E > 0, 
+    length(Ships, L), 
+    E =< L,
+    Id is E - 1,
+    plotMatrix(Spc),    
+    write('Pressione um <Enter> para escolher outra estrutura'), nl,     %% Por hora, um caractere com ponto e enter
+    read(_),
+    escolheEstrutura().
+mostraEstrutura(_) :- 
+    nl, write('Opção inválida :('), nl,
+    write('Pressione um <Enter> para voltar ao Menu'), nl,  %% Por hora, um caractere com ponto e enter
+    read(_),
+    write('\e[H\e[2J'),
+    escolheEstrutura().

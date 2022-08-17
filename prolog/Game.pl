@@ -1,4 +1,4 @@
-:- [main].
+% :- [main].
 :- [structures].
 :- [advanceGameState].
 
@@ -38,7 +38,6 @@ linhas(X, N) :-
     append(['|'], Row, Pre),
     append(Pre, ['|'], List),
     atomic_list_concat(List, Line),
-
     writeln(Line). 
 
 linhas(X, I) :-
@@ -63,27 +62,27 @@ viewMatrix(Matrix) :-
     atom_concat(Pre, Columns, Pos),
     atom_concat('1. Adicionar | q. Sair | [_]. Avançar | SZ: ', Pos, Head),
     writeln(Head),  
-    PlotMatrix(Matrix).
+    plotMatrix(Matrix).
 
 
 
-inputPlay(Mx, 1) :-
-    write('Selecione a Estrutura para adicionar ao mapa'), nl,
-    write(Opc), Opc is (X ++ '. ' ++ Spc),  Ship[Spc|_], nth0(K, spcShip, Ship), K is X -1, X <- {W <- 1..L, length(spcShip, L)},
-    read(Id),
-    write('linha: '), nl,
-    read(Row),
-    write('Coluna: '), nl,
-    read(Column),
-    insertSpaceShip(Mx, Id, Row, Column, Mx2),
-    viewMatrix(Mx2),
-    read(Input),
-    inputPlay(Mx2, Input).
+% inputPlay(Mx, 1) :-
+%     write('Selecione a Estrutura para adicionar ao mapa'), nl,
+%     write(Opc), Opc is (X ++ '. ' ++ Spc),  Ship[Spc|_], nth0(K, spcShip, Ship), K is X -1, X <- {W <- 1..L, length(spcShip, L)},
+%     read(Id),
+%     write('linha: '), nl,
+%     read(Row),
+%     write('Coluna: '), nl,
+%     read(Column),
+%     insertSpaceShip(Mx, Id, Row, Column, Mx2),
+%     viewMatrix(Mx2),
+%     read(Input),
+%     inputPlay(Mx2, Input).
 
 inputPlay(_, 'q') :- main().
 
 inputPlay(Mx, _) :-
-    AdvanceGameState(Mx, Mx2),
+    advanceGameState(Mx, Mx2),
     viewMatrix(Mx2),
     read(Input),
     inputPlay(Mx2, Input).

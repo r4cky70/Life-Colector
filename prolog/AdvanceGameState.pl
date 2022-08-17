@@ -1,6 +1,6 @@
 
 
-
+% Conta # funcional
 count([],0).
 count(['#'|T],N) :- count(T,N1), N is N1 + 1.
 count([X|T],N) :- X \= '#', count(T,N). % talvez seja redundante a primiera condicional
@@ -29,11 +29,11 @@ checa(Mx, Y, X) :-
 
 
 
-AdvanceGameState(_, [], _, _). % Se manter o método como recebendo dois parâmetros, refatorar todas as suas ocorrências
-AdvanceGameState(Mx, [L2|T2], X, Y) :- % X e Y começam com 0 (zero).
-    AdvanceGameStateRow(L1, L2, X, Y), AdvanceGameState(T1, T2, 0, K), K is Y + 1.
+advanceGameState(_, [], _, _). % Se manter o método como recebendo dois parâmetros, refatorar todas as suas ocorrências
+advanceGameState(Mx, [L2|T2], X, Y) :- % X e Y começam com 0 (zero).
+    advanceGameStateRow(L1, L2, X, Y), advanceGameState(T1, T2, 0, K), K is Y + 1.
     
-AdvanceGameStateRow(_, [], X, Y).
-AdvanceGameStateRow(Mx, [E2|L2], X, Y) :- 
-    (checa(Mx, X, Y) -> E2 is '#'; E2 is ' '), AdvanceGameStateRow(Mx, L2, Z, Y), Z is X + 1.
+advanceGameStateRow(_, [], X, Y).
+advanceGameStateRow(Mx, [E2|L2], X, Y) :- 
+    (checa(Mx, X, Y) -> E2 is '#'; E2 is ' '), advanceGameStateRow(Mx, L2, Z, Y), Z is X + 1.
      
