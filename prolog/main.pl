@@ -5,7 +5,7 @@
 
 
 mainGame() :- 
-    write('\e[H\e[2J'),
+    limpa(),
     writeln('----------------------------- Jogo da Vida -----------------------------'),
     writeln('Digite 1 para jogar'),
     writeln('Digite 2 para jogar com tabuleiro personalizado'),
@@ -13,7 +13,7 @@ mainGame() :-
     writeln('Digite 0 para sair'),
 
     read_line_to_string(user_input, O),
-    write('\e[H\e[2J'),
+    limpa(),
     executaOpcao(O).
 
 
@@ -28,7 +28,7 @@ executaOpcao(_) :-
                 nl, write('Opção inválida :('), nl,
                 writeln('Pressione um <Enter> para voltar ao Menu'),  %% Por hora, um caractere com ponto e enter
                 read_line_to_string(user_input, _),
-                write('\e[H\e[2J'),
+                limpa(),
                 mainGame().
 
 
@@ -83,8 +83,6 @@ mostraEstrutura(_) :-
 limpa() :- write('\e[H\e[2J').
 
 
-
-
 % Função para sair do jogo.
 saiMain() :-
-    nl, writeln('Até uma próxima jogatina :)').
+    nl, writeln('Até uma próxima jogatina :)'), halt().
