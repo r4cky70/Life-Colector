@@ -58,7 +58,6 @@ Por fim,  execute o seguinte comando para iniciar o jogo:
 ```bash
 cabal run
 ```
-### Para a plena funcinalidade do jogo, é recomendado a sua inicialização em um computador com sistema operacional Windows e em um terminal em tela cheia.
 
 ## Implementação em Prolog
 
