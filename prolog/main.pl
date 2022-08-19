@@ -70,7 +70,7 @@ mostraEstrutura(_) :-
     nl, writeln('Opção inválida :('),
     writeln('Pressione um <Enter> para voltar ao Menu'),  %% Por hora, um caractere com ponto e enter
     read(_),
-    limpa()
+    limpa(),
     escolheEstrutura().
 
 
