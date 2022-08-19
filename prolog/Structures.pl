@@ -1,6 +1,5 @@
 
 
-
 % Lista de estruturas especiais.
 spcShips(
     [
@@ -41,30 +40,43 @@ insertSpaceShip(Mx, _, _, _, Mx).
 
 
 
+% Chamada recursiva da lógica do insertSpaceShip.
+insertRecursivo(Mx, _, _, _, Y, _, []) :- length(Mx, Y).
 
-% insertRecursivo(Mx, _, _, _, _, Y, _, []) :- length(Mx, Y).
-
-% insertRecursivo(Mx, Height, Width, Structure, Y, X, [H|T]) :-
-%     insertRecursivoRow(Mx, Height, Width, Structure, Y, X, H),
-%     K is Y + 1,
-%     insertRecursivo(Mx, Height, Width, Structure, K, 0, T).
+insertRecursivo(Mx, Height, Width, Structure, Y, X, [H|T]) :-
+    insertRecursivoRow(Mx, Height, Width, Structure, Y, X, H),
+    K is Y + 1,
+    insertRecursivo(Mx, Height, Width, Structure, K, 0, T).
 
 
 
-% insertRecursivoRow(Mx, _, _, _, _, _, X, []) :- nth0(0, Mx, R), length(R, X).
+insertRecursivoRow(Mx, _, _, _, _, X, []) :- nth0(0, Mx, R), length(R, X).
 
-% insertRecursivoRow(Mx, Height, Width, Structure, Y, X, [H|T]) :-
-%     Difx is X - Width,
-%     Dify is Y - Height,
-%     nth0(1, Structure, S1),
-%     length(S1, Ls1),
-%     lenght(Structure, Ls),
-%     nth0(Dify, Structure, Rt),
-%     nth0(Difx, Rt, T),
-%     nth0(Y, Mx, Rm),
-%     nth0(X, Rm, M),
+insertRecursivoRow(Mx, Height, Width, Structure, Y, X, [H|T]) :-
+    Difx is X - Width,
+    Dify is Y - Height,
+    nth0(1, Structure, S1),
+    length(S1, Ls1),
+    length(Structure, Ls),
+    nth0(Y, Mx, Rm),
+    nth0(X, Rm, M),
     
-%     (X >= Width, Y >=  Height, Difx < Ls1, Dify < Ls -> H is T; H is M),
+    (X >= Width, Y >=  Height, Difx < Ls1, Dify < Ls -> 
+    nth0(Dify, Structure, Rs), nth0(Difx, Rs, S), H = S; H = M),
 
-%     K is X + 1,
-%     insertRecursivoRow(Mx, Height, Width, Structure, Y, K, T).
+    K is X + 1,
+    insertRecursivoRow(Mx, Height, Width, Structure, Y, K, T).
+
+
+
+menuEstruturas(N) :-
+    spcShips(Ships),
+    length(Ships, N).
+menuEstruturas(I) :-
+    getShip(I, [Name, _]),
+    J is I + 1,
+    number_string(J, Js),
+    string_concat(Js, ". ", Pre),
+    string_concat(Pre, Name, Op), 
+    write(Op), nl,
+    menuEstruturas(J).

@@ -1,4 +1,3 @@
-% :- [main].
 :- [structures].
 :- [advanceGameState].
 
@@ -31,14 +30,7 @@ plotMatrix(Matrix) :-
 
 
 % Função que ajuda na formatação do tabuleiro formatando as linhas.
-linhas(X, N) :-
-    length(X, K),
-    N =:= K -1, 
-    nth0(N, X, Row),
-    append(['|'], Row, Pre),
-    append(Pre, ['|'], List),
-    atomic_list_concat(List, Line),
-    writeln(Line). 
+linhas(X, K) :- length(X, K). 
 
 linhas(X, I) :-
     nth0(I, X, Row),
@@ -66,26 +58,32 @@ viewMatrix(Matrix) :-
 
 
 
-% inputPlay(Mx, 1) :-
-%     write('Selecione a Estrutura para adicionar ao mapa'), nl,
-%     write(Opc), Opc is (X ++ '. ' ++ Spc),  Ship[Spc|_], nth0(K, spcShip, Ship), K is X -1, X <- {W <- 1..L, length(spcShip, L)},
-%     read(Id),
-%     write('linha: '), nl,
-%     read(Row),
-%     write('Coluna: '), nl,
-%     read(Column),
-%     insertSpaceShip(Mx, Id, Row, Column, Mx2),
-%     viewMatrix(Mx2),
-%     read(Input),
-%     inputPlay(Mx2, Input).
-
-inputPlay(_, 'q') :- main().
-
-inputPlay(Mx, _) :-
-    advanceGameState(Mx, Mx2),
+inputPlay(Mx, 1) :-
+    write('Selecione a Estrutura para adicionar ao mapa'), nl,
+    menuEstruturas(0),
+    read(Id),
+    write('linha: '), nl,
+    read(Row),
+    write('Coluna: '), nl,
+    read(Column),
+    Height is Row - 1, 
+    Width is Column - 1,
+    insertSpaceShip(Mx, Id, Height, Width, Mx2),
     viewMatrix(Mx2),
     read(Input),
     inputPlay(Mx2, Input).
+
+inputPlay(Mx, _) :-
+    advanceGameState(Mx, 0, 0, Mx2),
+    viewMatrix(Mx2),
+    read(Input),
+    inputPlay(Mx2, Input).
+
+inputPlay(_, 'q') :- sai().
+
+% Função para sair do jogo.
+sai() :-
+    nl, writeln('Até uma próxima jogatina :)').
 
 
 

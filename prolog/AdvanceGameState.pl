@@ -1,15 +1,25 @@
 
 
+
+
 % Conta # funcional
-count([],0).
-count(['#'|T],N) :- count(T,N1), N is N1 + 1.
-count([X|T],N) :- X \= '#', count(T,N). % talvez seja redundante a primiera condicional
+conte([], 0).
+conte(['#'|T], N) :- conte(T,N1), N is N1 + 1.
+conte([X|T], N) :- X \= '#', conte(T,N). % talvez seja redundante a primiera condicional
 
 
 
 
 checa(Mx, Y, X) :-
-    Aux is [A, B, C, D, E, F, G, H],
+    %aux([A, B, C, D, E, F, G, H]),
+    nth0(0, Mx, List),
+    length(List, Row), 
+    Len is Row - 1, 
+    
+	(X =\= 0, Y =\= 0, length(Mx, K), K =\= X, Y =\= Len),
+    
+    Xx is X -1, XX is X + 1, Yy is Y - 1, YY is Y + 1,
+    
     nth0(Y, Aa, A), nth0(Xx, Mx, Aa),
     nth0(Yy, Bb, B), nth0(X, Mx, Bb),
     nth0(Y, Cc, C), nth0(XX, Mx, Cc),
@@ -19,21 +29,22 @@ checa(Mx, Y, X) :-
     nth0(Yy, Gg, G), nth0(XX, Mx, Gg),
     nth0(Yy, Hh, H), nth0(Xx, Mx, Hh),
 
-    Xx is X -1, XX is X + 1, Yy is Y - 1, YY is Y + 1,
-    count(Aux, LiveNeighbours),
-
-    Len is Row - 1, length(List, Row), nth0(0, Mx, List),
-    ((X =\= 0, Y =\= 0, length(Mx, K), K =\= X, Y =\= Len);
-    ((nth0(Y, Bb, I), I =:= '#') -> (LiveNeighbours >= 2, LiveNeighbours =< 3));
-    (LiveNeighbours =:= 3)).
-
-
-
-advanceGameState(_, [], _, _). % Se manter o método como recebendo dois parâmetros, refatorar todas as suas ocorrências
-advanceGameState(Mx, [L2|T2], X, Y) :- % X e Y começam com 0 (zero).
-    advanceGameStateRow(L1, L2, X, Y), advanceGameState(T1, T2, 0, K), K is Y + 1.
+    %aux(Aux),
+    conte([A, B, C, D, E, F, G, H], LiveNeighbours),
     
-advanceGameStateRow(_, [], X, Y).
-advanceGameStateRow(Mx, [E2|L2], X, Y) :- 
-    (checa(Mx, X, Y) -> E2 is '#'; E2 is ' '), advanceGameStateRow(Mx, L2, Z, Y), Z is X + 1.
+    (nth0(Y, Bb, I), I = '#' -> LiveNeighbours >= 2, LiveNeighbours =< 3).
+
+
+
+advanceGameState(Mx, _, Y, []) :- length(Mx, Y). % Se manter o método como recebendo dois parâmetros, refatorar todas as suas ocorrências
+advanceGameState(Mx, X, Y, [H2|T2]) :- % X e Y começam com 0 (zero).
+    advanceGameStateRow(Mx, X, Y, H2), 
+    K is Y + 1,
+    advanceGameState(Mx, 0, K, T2).
+    
+advanceGameStateRow(Mx, X, _, []) :- nth0(0, Mx, R), length(R, X).
+advanceGameStateRow(Mx, X, Y, [H2|T2]) :- 
+    (checa(Mx, X, Y) -> H2 = '#'; H2 = ' '),
+    Z is X + 1,
+    advanceGameStateRow(Mx, Z, Y, T2).
      
