@@ -1,3 +1,5 @@
+:- initialization(mainGame).
+
 :- encoding(utf8).
 
 :-[structures].
