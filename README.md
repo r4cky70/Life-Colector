@@ -59,3 +59,23 @@ Por fim,  execute o seguinte comando para iniciar o jogo:
 cabal run
 ```
 ### Para a plena funcinalidade do jogo, é recomendado a sua inicialização em um computador com sistema operacional Windows e em um terminal em tela cheia.
+
+## Implementação em Prolog
+
+### Para a funcionalidade da aplicação em Prolog é necessário
+
+- Ter em sua máquina [swipl](https://www.swi-prolog.org/download/stable/).
+- Ter a tela do terminal em dimensões de ao menos 30x120 :
+
+Entre no diretório de prolog
+
+```bash
+$ cd prolog
+```
+
+Compile e rode o jogo executando
+
+```bash
+$ swipl -s Main.pl
+```
+
