@@ -53,14 +53,14 @@ escolheEstrutura() :-
     menuEstruturas(0), nl,
     writeln('Pressione 0 para voltar ao menu'),
     read_line_to_string(user_input, S),
-    number_string(E, S),
     limpa(),
-    mostraEstrutura(E).
+    mostraEstrutura(S).
 
 
 
-mostraEstrutura(0) :- mainGame().
-mostraEstrutura(E) :- 
+mostraEstrutura("0") :- mainGame().
+mostraEstrutura(S) :- 
+    number_string(E, S),
     getShip(Id, [_, Spc]),
     spcShips(Ships),
     E > 0, 
