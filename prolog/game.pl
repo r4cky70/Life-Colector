@@ -1,6 +1,6 @@
 :- [structures].
 :- [advanceGameState].
-
+:- discontiguous inputPlay/2.
 
 % Função que gera repetição de termos e listas.
 repete(0, _, []).
