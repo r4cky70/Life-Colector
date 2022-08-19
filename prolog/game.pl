@@ -72,6 +72,12 @@ inputPlay(Mx, 1) :-
     viewMatrix(Mx2),
     read(Input),
     inputPlay(Mx2, Input).
+    
+inputPlay(_, 'q') :- sai().
+
+% Função para sair do jogo.
+sai() :-
+    nl, writeln('Até uma próxima jogatina :)').
 
 inputPlay(Mx, _) :-
     advanceGameState(Mx, 0, 0, Mx2),
@@ -79,11 +85,6 @@ inputPlay(Mx, _) :-
     read(Input),
     inputPlay(Mx2, Input).
 
-inputPlay(_, 'q') :- sai().
-
-% Função para sair do jogo.
-sai() :-
-    nl, writeln('Até uma próxima jogatina :)').
 
 
 
