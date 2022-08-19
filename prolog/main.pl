@@ -17,11 +17,11 @@ mainGame() :-
 
 
 % Executa a opção escolhida        com ponto no final
-executaOpcao(1) :- iniciaJogo(35, 208)
+executaOpcao(1) :- iniciaJogo(35, 208).
 executaOpcao(2) :- preparaJogo().
 executaOpcao(3) :- escolheEstrutura().
 executaOpcao(0) :-
-                sai().
+                saiMain().
 executaOpcao(_) :-
                 nl, write('Opção inválida :('), nl,
                 writeln('Pressione um <Enter> para voltar ao Menu'),  %% Por hora, um caractere com ponto e enter
@@ -44,12 +44,12 @@ preparaJogo() :-
 
 % Lista o nome das estruturas presentes.
 escolheEstrutura() :-
-    write('\e[H\e[2J'),
+    limpa(),
     writeln('Selecione uma estrutura para visualizar'), nl, 
     menuEstruturas(0), nl,
     writeln('Pressione 0 para voltar ao menu'),
     read(E),
-    write('\e[H\e[2J'),
+    limpa(),
     mostraEstrutura(E).
 
 
@@ -70,11 +70,16 @@ mostraEstrutura(_) :-
     nl, writeln('Opção inválida :('),
     writeln('Pressione um <Enter> para voltar ao Menu'),  %% Por hora, um caractere com ponto e enter
     read(_),
-    write('\e[H\e[2J'),
+    limpa()
     escolheEstrutura().
+
+
+% Função que limpa a tela.
+limpa() :- write('\e[H\e[2J').
+
 
 
 
 % Função para sair do jogo.
-sai() :-
+saiMain() :-
     nl, writeln('Até uma próxima jogatina :)').
