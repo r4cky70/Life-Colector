@@ -75,6 +75,6 @@ $ cd prolog
 Compile e rode o jogo executando
 
 ```bash
-$ swipl -s Main.pl
+$ swipl -s main.pl
 ```
 
