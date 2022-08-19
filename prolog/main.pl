@@ -17,7 +17,7 @@ mainGame() :-
 
 
 % Executa a opção escolhida        com ponto no final
-executaOpcao(1) :- iniciaJogo(8, 50). %35, 208
+executaOpcao(1) :- iniciaJogo(35, 208)
 executaOpcao(2) :- preparaJogo().
 executaOpcao(3) :- escolheEstrutura().
 executaOpcao(0) :-
