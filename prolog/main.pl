@@ -1,3 +1,5 @@
+:- encoding(utf8).
+
 :-[structures].
 :-[game].
 
@@ -10,22 +12,22 @@ mainGame() :-
     writeln('Digite 3 para visualizar as estruturas'),
     writeln('Digite 0 para sair'),
 
-    read(O),
+    read_line_to_string(user_input, O),
     write('\e[H\e[2J'),
     executaOpcao(O).
 
 
 
 % Executa a opção escolhida        com ponto no final
-executaOpcao(1) :- iniciaJogo(35, 150).
-executaOpcao(2) :- preparaJogo().
-executaOpcao(3) :- escolheEstrutura().
-executaOpcao(0) :-
+executaOpcao("1") :- iniciaJogo(35, 150).
+executaOpcao("2") :- preparaJogo().
+executaOpcao("3") :- escolheEstrutura().
+executaOpcao("0") :-
                 saiMain().
 executaOpcao(_) :-
                 nl, write('Opção inválida :('), nl,
                 writeln('Pressione um <Enter> para voltar ao Menu'),  %% Por hora, um caractere com ponto e enter
-                read(_),
+                read_line_to_string(user_input, _),
                 write('\e[H\e[2J'),
                 mainGame().
 
@@ -34,9 +36,11 @@ executaOpcao(_) :-
 preparaJogo() :- 
     writeln('Escolha o tamanho do seu tabuleiro'),
     writeln('Insira o número de linhas'),
-    read(R), nl,
+    read_line_to_string(user_input, S),
+    number_string(R, S), nl,
     writeln('Insira o número de colunas'),
-    read(C),
+    read_line_to_string(user_input, P),
+    number_string(C, P),
     iniciaJogo(R, C).
     
 
@@ -48,7 +52,8 @@ escolheEstrutura() :-
     writeln('Selecione uma estrutura para visualizar'), nl, 
     menuEstruturas(0), nl,
     writeln('Pressione 0 para voltar ao menu'),
-    read(E),
+    read_line_to_string(user_input, S),
+    number_string(E, S),
     limpa(),
     mostraEstrutura(E).
 
@@ -63,13 +68,13 @@ mostraEstrutura(E) :-
     E =< L,
     Id is E - 1,
     plotMatrix(Spc),    
-    write('Pressione um <Enter> para escolher outra estrutura'), nl,     %% Por hora, um caractere com ponto e enter
-    read(_),
+    write('Pressione um <Enter> para escolher outra estrutura'), nl,
+    read_line_to_string(user_input, _),
     escolheEstrutura().
 mostraEstrutura(_) :- 
     nl, writeln('Opção inválida :('),
-    writeln('Pressione um <Enter> para voltar ao Menu'),  %% Por hora, um caractere com ponto e enter
-    read(_),
+    writeln('Pressione um <Enter> para voltar ao Menu'),
+    read_line_to_string(user_input, _),
     limpa(),
     escolheEstrutura().
 

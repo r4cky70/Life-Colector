@@ -1,3 +1,6 @@
+:- encoding(utf8).
+
+
 :- [structures].
 :- [advanceGameState].
 :- discontiguous inputPlay/2.
@@ -58,22 +61,25 @@ viewMatrix(Matrix) :-
 
 
 
-inputPlay(Mx, 1) :-
+inputPlay(Mx, "1") :-
     write('Selecione a Estrutura para adicionar ao mapa'), nl,
     menuEstruturas(0),
-    read(Id),
+    read_line_to_string(user_input, R),
+    number_string(Id, R),
     write('linha: '), nl,
-    read(Row),
+    read_line_to_string(user_input, S),
+    number_string(Row, S),
     write('Coluna: '), nl,
-    read(Column),
+    read_line_to_string(user_input, L),
+    number_string(Column, L),
     Height is Row - 1, 
     Width is Column - 1,
     insertSpaceShip(Mx, Id, Height, Width, Mx2),
     viewMatrix(Mx2),
-    read(Input),
+    read_line_to_string(user_input, Input),
     inputPlay(Mx2, Input).
     
-inputPlay(_, 'q') :- sai().
+inputPlay(_, "q") :- sai().
 
 % Função para sair do jogo.
 sai() :-
@@ -82,7 +88,7 @@ sai() :-
 inputPlay(Mx, _) :-
     advanceGameState(Mx, 0, 0, Mx2),
     viewMatrix(Mx2),
-    read(Input),
+    read_line_to_string(user_input, Input),
     inputPlay(Mx2, Input).
 
 
@@ -99,5 +105,5 @@ game(W, H) :-
 iniciaJogo(L, C) :-
     matrixGen(L, C, Matrix),
     viewMatrix(Matrix),
-    read(Move),
+    read_line_to_string(user_input, Move),
     inputPlay(Matrix, Move).
